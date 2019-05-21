@@ -36,3 +36,40 @@ $(document).on("click", ".btn-note", function() {
     });
 });
 
+// Click Save Note button
+$(document).on("click", "#savenote", function() {
+  // Grab the id associated with the article from the submit button
+  var thisId = $(this).attr("data-id");
+  // console.log(thisId);
+
+  // Run a POST request to change the note, using what's entered in the inputs
+  $.ajax({
+    method: "POST",
+    url: "/articles/" + thisId,
+    data: {
+      // Value taken from note textarea
+      body: $("#bodyinput").val()
+    }
+  })
+    .done(function(data) {
+      console.log(data);
+    });
+  $("#bodyinput").val("");
+});
+
+// When you click the Delete button
+$(document).on("click", "#btn-delete", function() {
+  
+  var thisId = $(this).attr("data-id");
+  console.log(thisId);
+
+  $.ajax({
+    method: "PUT",
+    url: "/delete/" + thisId,
+  })
+  
+  .done(function(data) {
+      console.log(data);
+      location.reload();
+  });
+});

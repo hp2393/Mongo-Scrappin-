@@ -57,4 +57,34 @@ $(document).on("click", "#savenote", function() {
   var thisId = $(this).attr("data-id");
   console.log(thisId);
 
+  // Run a POST request to change the note, using what's entered in the inputs
+  $.ajax({
+    method: "POST",
+    url: "/articles/" + thisId,
+    data: {
+      body: $("#bodyinput").val()
+    }
+  })
+    .done(function(data) {
+      console.log(data);
+    });
+  $("#bodyinput").val("");
+});
+
+// Save Article button
+$(document).on("click", "#btn-save", function() {
+  $(this).addClass("disabled");
+  var thisId = $(this).attr("data-id");
+  console.log(thisId);
+
+  $.ajax({
+    method: "PUT",
+    url: "/saved/" + thisId,
+   
+  })
+  .done(function(data) {
+      console.log(data);
+  });
+});
+
 
